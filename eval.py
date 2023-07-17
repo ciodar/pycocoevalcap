@@ -30,7 +30,7 @@ class COCOEvalCap:
         # =================================================
         print('tokenization...')
         tokenizer = PTBTokenizer()
-        gts  = tokenizer.tokenize(gts)
+        gts = tokenizer.tokenize(gts)
         res = tokenizer.tokenize(res)
 
         # =================================================
@@ -42,7 +42,7 @@ class COCOEvalCap:
             (Meteor(),"METEOR"),
             (Rouge(), "ROUGE_L"),
             (Cider(), "CIDEr"),
-            (Spice(), "SPICE")
+            #(Spice(), "SPICE")
         ]
 
         # =================================================
@@ -61,6 +61,7 @@ class COCOEvalCap:
                 self.setImgToEvalImgs(scores, gts.keys(), method)
                 print("%s: %0.3f"%(method, score))
         self.setEvalImgs()
+        return self.eval
 
     def setEval(self, score, method):
         self.eval[method] = score
