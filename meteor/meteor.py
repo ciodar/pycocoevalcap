@@ -12,11 +12,10 @@ import threading
 METEOR_JAR = 'meteor-1.5.jar'
 # print METEOR_JAR
 
+
 class Meteor:
 
     def __init__(self):
-        d = dict(os.environ.copy())
-        d['LANG'] = 'C'
         self.meteor_cmd = ['java', '-jar', '-Xmx2G', METEOR_JAR, \
                            '-', '-', '-stdio', '-l', 'en', '-norm']
         self.meteor_p = subprocess.Popen(self.meteor_cmd, \
@@ -39,7 +38,7 @@ class Meteor:
             stat = self._stat(res[i][0], gts[i])
             eval_line += ' ||| {}'.format(stat)
 
-        self.meteor_p.stdin.write('{}\n'.format(eval_line).replace('.', ',').encode())
+        self.meteor_p.stdin.write('{}\n'.format(eval_line).encode())
         self.meteor_p.stdin.flush()
         for i in range(0, len(imgIds)):
             scores.append(float(self.meteor_p.stdout.readline().strip()))
